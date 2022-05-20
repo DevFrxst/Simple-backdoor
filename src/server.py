@@ -35,8 +35,8 @@ info = f"""
 """
 
 class MainServer:
-    host = "192.168.1.135"
-    port = 6060
+    host = "127.0.0.1"
+    port = 6262
         
     def start(self):
         s = socket(AF_INET, SOCK_STREAM)
@@ -62,7 +62,7 @@ if __name__ == "__main__":
         print(banner+info)
         MainServer().start()
     except:
-        print("{red}[+] {yellow}error")
+        print(f"{red}[+] {yellow}error")
         sys.exit(0)
 else:
     print("{red}[+] {yellow}Invalid method")
